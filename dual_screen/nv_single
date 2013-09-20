@@ -1,0 +1,14 @@
+#!/bin/sh
+
+SCREENS=$(xrandr | grep connected | awk '{print $1}')
+
+ARGS=""
+for screen in $SCREENS; do
+  if [ "${screen#LVDS}" == "${screen}" ]; then
+    ARGS="${ARGS} --output ${screen} --off"
+  else
+    ARGS="${ARGS} --output ${screen} --auto"
+  fi
+done
+
+xrandr ${ARGS}
